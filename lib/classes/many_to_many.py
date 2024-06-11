@@ -6,30 +6,27 @@ class Article:
             raise ValueError("Title must be a string and between 5-50 characters")
         self._title = title
 
+
+
         self._author = author
         self._magazine = magazine
         self._author.articles().append(self)
         self._magazine.articles().append(self)
         Article.all.append(self)
-
     @property
     def title(self):
         return self._title
-
     @property
     def author(self):
         return self._author
-
     @author.setter
     def author(self, author):
         if not isinstance(author, Author):
             raise ValueError("Author must be of type Author")
         self._author = author
-
     @property
     def magazine(self):
         return self._magazine
-
     @magazine.setter
     def magazine(self, magazine):
         if not isinstance(magazine, Magazine):
@@ -43,25 +40,19 @@ class Author:
             raise ValueError("Name must be a non-empty string")
         self._name = name
         self._articles = []
-
     @property
     def name(self):
         return self._name
-
     def articles(self):
         return self._articles
-
     def magazines(self):
         return list(set(article.magazine for article in self._articles))
-
     def add_article(self, magazine, title):
         return Article(self, magazine, title)
-
     def topic_areas(self):
         if not self._articles:
             return None
         return list(set(article.magazine.category for article in self._articles))
-
 
 class Magazine:
     def __init__(self, name, category):
@@ -74,21 +65,17 @@ class Magazine:
         self._category = category
         
         self._articles = []
-
     @property
     def name(self):
         return self._name
-
     @name.setter
     def name(self, name):
         if not isinstance(name, str) or not (2 <= len(name) <= 16):
             raise ValueError("Name must be a string between 2 and 16 characters")
         self._name = name
-
     @property
     def category(self):
         return self._category
-
     @category.setter
     def category(self, value):
         if not isinstance(value, str):
@@ -120,9 +107,7 @@ class Magazine:
         return contributing_authors if contributing_authors else None
 
 
-
 author1 = Author("John Lee")
-
 
 magazine1 = Magazine("Tech Monthly", "Technology")
 magazine2 = Magazine("M News", "News")
@@ -133,10 +118,7 @@ print (article1.magazine.name)
 print (article1.author.name)
 Magazine_by_1 = author1.magazines()
 magazine_names = [magazine.name for magazine in Magazine_by_1]
-
 print(magazine_names)
-
-
 # This verifies the relationship
 print(f"Author1: {author1.name}, Articles: {[article.title for article in author1.articles()]}")
 print(f"Magazine2: {magazine2.name}, Articles: {[article.title for article in magazine2.articles()]}")
